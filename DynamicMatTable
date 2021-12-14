@@ -1,0 +1,43 @@
+HTML:
+<div class="list-container">
+  <table mat-table [dataSource]="dataSource" class="table-container" sticky>
+    <ng-container
+      [matColumnDef]="column"
+      *ngFor="let column of columnHeaderList"
+      matColumnDef="position"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnHeaderList; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnHeaderList"></tr>
+  </table>
+</div>
+
+TS:
+import { Component, Input, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Product } from 'src/app/data/schema/product';
+
+@Component({
+  selector: 'app-list-view',
+  templateUrl: './list-view.component.html',
+  styleUrls: ['./list-view.component.scss'],
+})
+export class ListViewComponent implements OnInit {
+  @Input() columnHeaderList: string[] = [];
+  @Input() rowData: any = [];
+
+  dataSource!: MatTableDataSource<Product>;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+  
+  ngDoCheck() {
+    this.dataSource = new MatTableDataSource<Product>(this.rowData);
+    console.log(this.rowData);
+  }
+}
+
