@@ -1,0 +1,8 @@
+<h2>Two Way Binding!!!</h2>
+
+
+<p>parent font size : {{fontSize}}</p>
+
+<p>potato</p>
+
+<app-sizer [fontSize]="fontSize" (sizeChange)="fontSizeChange($event)" [methodFromParent]="PassThisMethodToChild" ><app-sizer>
